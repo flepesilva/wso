@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "estocastica",
+            "database": "${workspaceFolder:Solver_SCP-main}/BD/resultados_scp.db"
+        }
+    ]
+}
