@@ -60,6 +60,10 @@ def solverB(id, mh, maxIter, pop, function, lb, ub, dim):
     Best = poblacion[bestRowAux].copy()
     BestFitness = fitness[bestRowAux]
     
+    index = np.argmin(fitness)
+    gbest = poblacion[index, :]
+    wbest = np.copy(poblacion)
+
     tiempoInicializacion2 = time.time()
     
     # mostramos nuestro fitness iniciales
@@ -98,7 +102,7 @@ def solverB(id, mh, maxIter, pop, function, lb, ub, dim):
         if mh == 'PSA':
             poblacion = iterarPSA(maxIter, iter, dim, poblacion.tolist(), Best.tolist())
         if mh == 'WSO':
-            poblacion = iterarWSO(maxIter, iter, dim, pop, poblacion, lb, ub, v, BestFitness, Best.tolist() )
+            poblacion = iterarWSO(maxIter, iter, dim, pop, poblacion, lb, ub, v, gbest, wbest )
         
         # calculo de factibilidad de cada individuo y calculo del fitness inicial
         for i in range(poblacion.__len__()):
