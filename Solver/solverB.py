@@ -61,8 +61,10 @@ def solverB(id, mh, maxIter, pop, function, lb, ub, dim):
     BestFitness = fitness[bestRowAux]
     
     index = np.argmin(fitness)
-    gbest = poblacion[index, :]
     wbest = np.copy(poblacion)
+    fmin0 = np.min(fitness)
+    # Best == gbest
+
 
     tiempoInicializacion2 = time.time()
     
@@ -102,7 +104,7 @@ def solverB(id, mh, maxIter, pop, function, lb, ub, dim):
         if mh == 'PSA':
             poblacion = iterarPSA(maxIter, iter, dim, poblacion.tolist(), Best.tolist())
         if mh == 'WSO':
-            poblacion = iterarWSO(maxIter, iter, dim, pop, poblacion, lb, ub, v, gbest, wbest )
+            poblacion = iterarWSO(maxIter, iter, dim, pop, poblacion, lb, ub, v, Best, wbest )
         
         # calculo de factibilidad de cada individuo y calculo del fitness inicial
         for i in range(poblacion.__len__()):
@@ -117,6 +119,10 @@ def solverB(id, mh, maxIter, pop, function, lb, ub, dim):
         if fitness[solutionsRanking[0]] < BestFitness:
             BestFitness = fitness[solutionsRanking[0]]
             Best = poblacion[solutionsRanking[0]]
+
+        if fitness[i] < fmin0:
+            print('holaaaaaaaaaaaaa')
+            wbest[i, :] = poblacion[i, :]
 
         div_t = diversidadHussain(poblacion)
 
