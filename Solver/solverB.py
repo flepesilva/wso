@@ -54,15 +54,14 @@ def solverB(id, mh, maxIter, pop, function, lb, ub, dim):
 
         fitness[i] = f(function, poblacion[i])
         
+    fit = fitness    
     solutionsRanking = np.argsort(fitness) # rankings de los mejores fitnes
     bestRowAux = solutionsRanking[0]
     # DETERMINO MI MEJOR SOLUCION Y LA GUARDO 
     Best = poblacion[bestRowAux].copy()
     BestFitness = fitness[bestRowAux]
     
-    index = np.argmin(fitness)
     wbest = np.copy(poblacion)
-    fmin0 = np.min(fitness)
     # Best == gbest
 
 
@@ -115,14 +114,19 @@ def solverB(id, mh, maxIter, pop, function, lb, ub, dim):
             
         solutionsRanking = np.argsort(fitness) # rankings de los mejores fitness
         
+
+        if fitness[solutionsRanking[0]] < fit[solutionsRanking[0]]:
+            wbest[[solutionsRanking[0]], :] = poblacion[[solutionsRanking[0]], :]
+            fit[solutionsRanking[0]] = fitness[solutionsRanking[0]]
+            print('CODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNOCODIGO UNO')
         #Conservo el Best
         if fitness[solutionsRanking[0]] < BestFitness:
             BestFitness = fitness[solutionsRanking[0]]
             Best = poblacion[solutionsRanking[0]]
+            print('CODIGO DOS')
 
-        if fitness[i] < fmin0:
-            print('holaaaaaaaaaaaaa')
-            wbest[i, :] = poblacion[i, :]
+
+
 
         div_t = diversidadHussain(poblacion)
 
