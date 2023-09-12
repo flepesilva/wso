@@ -112,7 +112,6 @@ def WSO(max_iter, whiteSharks, lb, ub, dim, fobj):
 
         #--------------------------------------------------------------------------------------
         # Actualizar las posiciones global, best and new positions
-        fit = np.zeros(whiteSharks)
         for i in range(whiteSharks):
             #Manejo de violaciones de límites.
             if np.all(lb <= WSO_Positions[i, :]) and np.all(WSO_Positions[i, :] <= ub):

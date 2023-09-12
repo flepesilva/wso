@@ -105,25 +105,6 @@ def solverB(id, mh, maxIter, pop, function, lb, ub, dim):
         if mh == 'WSO':
             poblacion = iterarWSO(maxIter, iter, dim, pop, poblacion, lb, ub, v, Best, wbest )
         
-        # calculo de factibilidad de cada individuo y calculo del fitness inicial
-        # for i in range(poblacion.__len__()):
-        #     for j in range(dim):
-        #         poblacion[i, j] = np.clip(poblacion[i, j], lb[j], ub[j])            
-
-        #     fitness[i] = f(function, poblacion[i])
-            
-        # solutionsRanking = np.argsort(fitness) # rankings de los mejores fitness
-        
-
-        # if fitness[solutionsRanking[0]] < fit[solutionsRanking[0]]:
-        #     wbest[[solutionsRanking[0]], :] = poblacion[[solutionsRanking[0]], :]
-        #     fit[solutionsRanking[0]] = fitness[solutionsRanking[0]]
-        #     print('CODIGO UNO')
-        # #Conservo el Best
-        # if fitness[solutionsRanking[0]] < BestFitness:
-        #     BestFitness = fitness[solutionsRanking[0]]
-        #     Best = poblacion[solutionsRanking[0]]
-        #     print('CODIGO DOS')
 
         for i in range(pop):
             if np.all(lb <= poblacion[i, :]) and np.all(poblacion[i, :] <= ub):

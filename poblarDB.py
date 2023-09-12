@@ -4,8 +4,8 @@ import json
 bd = BD()
 
 
-scp = False
-ben = True
+scp = True
+ben = False
 mhs = ['WSO']
 cantidad = 0
 

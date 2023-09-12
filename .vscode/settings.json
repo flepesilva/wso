@@ -3,8 +3,8 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "name": "estocastica",
-            "database": "${workspaceFolder:Solver_SCP-main}/BD/resultados_scp.db"
+            "database": "${workspaceFolder:wso}/BD/resultados_scp.db",
+            "name": "sEDRCVBZ"
         }
     ]
 }
