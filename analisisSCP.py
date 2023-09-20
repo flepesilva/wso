@@ -22,11 +22,12 @@ incluye_gwo = False
 incluye_psa = False
 incluye_woa = False
 incluye_sca = False
+incluye_wso = False
 
 bd = BD()
 
 instancias = bd.obtenerInstancias(f'''
-                                  "scp41","scp42"
+                                  'scp41','scp42'
                                   ''')
 print(instancias)
 
@@ -43,36 +44,43 @@ for instancia in instancias:
     divGWO = [] 
     divWOA = [] 
     divPSA = []
+    divWSO = []
     
     fitnessSCA = [] 
     fitnessGWO = [] 
     fitnessWOA = [] 
     fitnessPSA = []
+    fitnessWSO = []
 
     timeSCA = []
     timeGWO = []
     timeWOA = []
     timePSA = []
+    timeWSO = []
 
     xplSCA = [] 
     xplGWO = [] 
     xplWOA = [] 
     xplPSA = []
+    xplWSO = []
 
     xptSCA = []
     xptGWO = []
     xptWOA = []
     xptPSA = []
+    xptWSO = []
     
     bestFitnessSCA = []
     bestFitnessGWO = []
     bestFitnessWOA = []
     bestFitnessPSA = []
+    bestFitnessWSO = []
 
     bestTimeSCA = []
     bestTimeGWO = []
     bestTimeWOA = []
     bestTimePSA = []
+    bestTimeWSO = []
     
     for d in blob:
         
@@ -110,6 +118,11 @@ for instancia in instancias:
             archivoResumenTimes.write(", min time (s), avg. time (s), std time (s)")
             archivoResumenPercentage.write(", avg. XPL%, avg. XPT%")
             incluye_sca = True
+        if mh == "WSO" and incluye_wso == False:
+            archivoResumenFitness.write(",best,avg. fitness, std fitness")
+            archivoResumenTimes.write(", min time (s), avg. time (s), std time (s)")
+            archivoResumenPercentage.write(", avg. XPL%, avg. XPT%")
+            incluye_wso = True
         
         problem = nombreArchivo.split('_')[1]
 
@@ -144,6 +157,12 @@ for instancia in instancias:
             xplWOA.append(np.round(np.mean(xpl), decimals=2))
             xptWOA.append(np.round(np.mean(xpt), decimals=2))
             archivoFitness.write(f'WOA,{str(np.min(fitness))}\n')
+        if mh == 'WSO':
+            fitnessWSO.append(np.min(fitness))
+            timeWSO.append(np.round(np.sum(time),3))
+            xplWSO.append(np.round(np.mean(xpl), decimals=2))
+            xptWSO.append(np.round(np.mean(xpt), decimals=2))
+            archivoFitness.write(f'WSO,{str(np.min(fitness))}\n')
             
         if graficos:
 
@@ -201,6 +220,11 @@ for instancia in instancias:
         archivoResumenFitness.write(f''',{np.min(fitnessWOA)},{np.round(np.average(fitnessWOA),3)},{np.round(np.std(fitnessWOA),3)}''')
         archivoResumenTimes.write(f''',{np.min(timeWOA)},{np.round(np.average(timeWOA),3)},{np.round(np.std(timeWOA),3)}''')
         archivoResumenPercentage.write(f''',{np.round(np.average(xplWOA),3)},{np.round(np.average(xplWOA),3)}''')
+    
+    if incluye_wso:
+        archivoResumenFitness.write(f''',{np.min(fitnessWSO)},{np.round(np.average(fitnessWSO),3)},{np.round(np.std(fitnessWSO),3)}''')
+        archivoResumenTimes.write(f''',{np.min(timeWSO)},{np.round(np.average(timeWSO),3)},{np.round(np.std(timeWSO),3)}''')
+        archivoResumenPercentage.write(f''',{np.round(np.average(xplWSO),3)},{np.round(np.average(xplWSO),3)}''')
 
     blob = bd.obtenerMejoresArchivos(instancia[1], "")
     
@@ -235,6 +259,9 @@ for instancia in instancias:
         if mh == 'WOA':
             bestFitnessWOA      = fitness
             bestTimeWOA         = time
+        if mh == 'WSO':
+            bestFitnessWSO      = fitness
+            bestTimeWSO         = time
         
         os.remove('./Resultados/Transitorio/'+nombreArchivo+'.csv')
 
@@ -248,6 +275,9 @@ for instancia in instancias:
         axPER.plot(iteraciones, bestFitnessPSA, color="g", label="PSA")
     if incluye_woa:
         axPER.plot(iteraciones, bestFitnessWOA, color="y", label="WOA")
+    if incluye_wso:
+        axPER.plot(iteraciones, bestFitnessWSO, color="m", label="WSO")
+    
     axPER.set_title(f'Coverage \n {problem}')
     axPER.set_ylabel("Fitness")
     axPER.set_xlabel("Iteration")

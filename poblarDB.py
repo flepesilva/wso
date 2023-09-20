@@ -6,7 +6,7 @@ bd = BD()
 
 scp = True
 ben = False
-mhs = ['WSO']
+mhs = ['WSO', 'MFO', 'GWO', 'PSA', 'SCA']
 cantidad = 0
 
 DS_actions = [
@@ -33,7 +33,7 @@ paramsML = json.dumps({
 if scp:
     # poblar ejecuciones SCP
     instancias = bd.obtenerInstancias(f'''
-                                      'scpnrh5'
+                                      "scp41","scp42"
                                       ''')
     print(instancias)
     iteraciones = 20

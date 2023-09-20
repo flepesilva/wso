@@ -128,6 +128,7 @@ def WSO(max_iter, whiteSharks, lb, ub, dim, fobj):
         #resultados
         outmsg = f'Iteration# {ite}  Fitness= {fmin0}'
         print(outmsg)
+        equis = random.random
 
         # Mejor valor encontrado hasta la iteración "ite".
         ccurve[ite] = fmin0

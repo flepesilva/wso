@@ -122,7 +122,7 @@ def solverSCP(id, mh, maxIter, pop, instancia, DS, repairType, param):
             muta = float(param.split(";")[1].split(":")[1])
             poblacion = iterarGA(poblacion.tolist(), fitness, cross, muta)
         if mh == "WSO":
-            poblacion = iterarWSO(maxIter, iter, instance.getColumns(), pop, poblacion, 0, 2, v, Best, wbest )
+            poblacion, v = iterarWSO(maxIter, iter, instance.getColumns(), pop, poblacion, None, None, v, Best, wbest )
 
         
         # Binarizo, calculo de factibilidad de cada individuo y calculo del fitness
